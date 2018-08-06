@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.EntityFrameworkCore;
+using WebCoreAngular.Models;
 
 namespace WebCoreAngular
 {
@@ -23,6 +25,7 @@ namespace WebCoreAngular
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
@@ -32,8 +35,19 @@ namespace WebCoreAngular
                     Title = "My API",
                     Description = "My First ASP.NET Core Web API",
                     TermsOfService = "None",
-                    Contact = new Contact() { Name = "Talking Dotnet", Email = "contact@talkingdotnet.com", Url = "www.talkingdotnet.com" }
+                    Contact = new Contact() { Name = "Mohamed Ali Boudich", Email = "allalaspace@gmail.com", Url = "www.talkingdotnet.com" }
                 });
+            });
+
+            services.AddDbContext<WebCoreAngularContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WebCoreAngularContext")));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             });
         }
 
@@ -54,7 +68,7 @@ namespace WebCoreAngular
             }
 
             app.UseStaticFiles();
-
+            app.UseCors("CorsPolicy");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
