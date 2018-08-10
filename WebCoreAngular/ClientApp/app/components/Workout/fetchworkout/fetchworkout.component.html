@@ -1,0 +1,34 @@
+﻿<h1>Workout Data</h1>
+
+<p>This component demonstrates fetching Workout data from the server.</p>
+
+<p *ngIf="!workList"><em>Loading...</em></p>
+
+
+
+<table class='table' *ngIf="workList">
+    <thead>
+        <tr>
+            <th>workoutId</th>
+            <th>DistanceInMeters</th>
+            <th>DateTimeOffset</th>
+            <th>TimeInSeconds</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let work of workList">
+            <td>{{ work.id }}</td>
+            <td>{{ work.distanceInMeters }}</td>
+            <td>{{ work.dateTimeOffset }}</td>
+            <td>{{ work.timeInSeconds }}</td>
+
+            <td>
+            <td>
+                <!--<a [routerLink]="['/employee/edit/', emp.employeeId]">Edit</a> |-->
+                <!--<a [routerLink]="" (click)="delete(emp.employeeId)">Delete</a>-->
+            </td>
+        </tr>
+    </tbody>
+</table>  

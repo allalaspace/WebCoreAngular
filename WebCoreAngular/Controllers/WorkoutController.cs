@@ -10,19 +10,19 @@ using WebCoreAngular.Models;
 namespace WebCoreAngular.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Workouts")]
-    public class WorkoutsController : Controller
+    [Route("api/Workout")]
+    public class WorkoutController : Controller
     {
         private readonly WebCoreAngularContext _context;
 
-        public WorkoutsController(WebCoreAngularContext context)
+        public WorkoutController(WebCoreAngularContext context)
         {
             _context = context;
         }
 
         // GET: api/Workouts
-        [HttpGet]
-        public IEnumerable<Workout> GetWorkout()
+        [HttpGet("[action]")]
+        public IEnumerable<object> GetWorkout()
         {
             return _context.Workout;
         }
